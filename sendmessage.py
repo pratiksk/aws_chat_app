@@ -19,9 +19,8 @@ def lambda_handler(event, context):
     )
 
     # Get all connection IDs
-    paginator = dynamodb.get_paginator('scan')
-    for page in paginator.paginate(TableName=os.environ['WEBSOCKET_TABLE']):
-        connectionIds.extend(page['Items'])
+    response = dynamodb.scan(TableName=os.environ['WEBSOCKET_TABLE'])
+    connectionIds = response.get('Items', [])
 
     # Handle "register" action
     if action_type == "register":
