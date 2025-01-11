@@ -22,6 +22,7 @@ def lambda_handler(event, context):
     response = dynamodb.scan(TableName=os.environ['WEBSOCKET_TABLE'])
     connectionIds = response.get('Items', [])
 
+
     # Handle "register" action
     if action_type == "register":
         username = body.get('username', '').strip()
@@ -114,8 +115,8 @@ def lambda_handler(event, context):
 
         try:
             lex_response = boto3.client('lexv2-runtime').recognize_text(
-                botId= os.environ['botId'],
-                botAliasId= os.environ['botAliasId']',
+                botId='JAZBL8VM7V',
+                botAliasId='8VNBFGEA58',
                 localeId='en_IN',
                 sessionId='user123',  # Unique session ID
                 text=bot_message
